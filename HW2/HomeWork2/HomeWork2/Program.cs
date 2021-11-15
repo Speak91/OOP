@@ -63,7 +63,6 @@ namespace HomeWork2
     }
     class Program
     {
-
         static void Main(string[] args)
         {
             Account account = new Account(10, bankAccountType.Чековый);
