@@ -33,28 +33,32 @@ namespace HomeWork2
         private string _accountType;
         private static string _generateAccountNumber;
 
-        public Account()
+        public Account(bankAccountType bankAccountType) : this(0)
         {
-            GeneateAccountNumber();
+            _accountType = bankAccountType.ToString();
+            _accountNumber = GenerateAccountNumber();
         }
 
-        public void MakeADeposit(int balance, bankAccountType AccountType)
+        public Account(int balance) : this(balance, bankAccountType.Сберегательный)
         {
-             
+            _accountNumber = GenerateAccountNumber();
+        }
+
+        public Account(int balance, bankAccountType AccountType)
+        {
             _balance = balance;
-            _accountNumber = _generateAccountNumber;
             _accountType = AccountType.ToString();
+            _accountNumber = GenerateAccountNumber();
         }
 
-        public void Display ()
+        public void Display()
         {
             Console.WriteLine($"Номер счета: {_accountNumber}, Баланс счета: {_balance} рублей, Тип счета: {_accountType}");
         }
 
-        private static void GeneateAccountNumber()
+        private static string GenerateAccountNumber()
         {
-            Random random = new Random();
-            _generateAccountNumber = Guid.NewGuid().ToString();
+            return _generateAccountNumber = Guid.NewGuid().ToString();
         }
     }
     class Program
@@ -62,13 +66,17 @@ namespace HomeWork2
 
         static void Main(string[] args)
         {
-            Account account = new Account();
-            account.MakeADeposit(100, bankAccountType.Сберегательный);
+            Account account = new Account(10, bankAccountType.Чековый);
             account.Display();
 
-            Account account2 = new Account();
-            account.MakeADeposit(100, bankAccountType.Инвестиционный);
-            account.Display();
+            Account account2 = new Account(50);
+            account2.Display();
+
+            Account account3 = new Account(bankAccountType.Инвестиционный);
+            account3.Display();
+
+            Account account4 = new Account(bankAccountType.Чековый);
+            account4.Display();
         }
     }
 }
